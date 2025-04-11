@@ -4,7 +4,7 @@ using MiniProjet.ProjectManagement.Infrastructure;
 
 namespace MiniProjet.ProjectManagement.Services.Services.Departements;
 
-public class DepartementService
+public class DepartementService : IDepartementService
 {
     private readonly MiniProjetContext _context;
 
@@ -37,7 +37,7 @@ public class DepartementService
 
     public async Task<Departement?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        return await _context.Departements.FindAsync( id , cancellationToken);
+        return await _context.Departements.FindAsync(id, cancellationToken);
     }
 
     public async Task UpdateAsync(Departement departement, CancellationToken cancellationToken = default)

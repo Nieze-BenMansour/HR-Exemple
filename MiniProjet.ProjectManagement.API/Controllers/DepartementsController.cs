@@ -10,16 +10,20 @@ namespace MiniProjet.ProjectManagement.API.Controllers;
 [ApiController]
 public class DepartementsController : ControllerBase
 {
-    private readonly DepartementService _departementService;
+    private readonly IDepartementService _departementService;
+    private readonly ILogger<DepartementsController> _logger;
 
-    public DepartementsController(DepartementService departementService)
+    public DepartementsController(IDepartementService departementService, ILogger<DepartementsController> logger)
     {
         _departementService = departementService;
+        _logger = logger;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetDepartements()
     {
+        _logger.LogInformation("Fetching all departements from the database.");
+
         var departements = await _departementService.GetAllAsync();
 
         var departementResponses = departements.Select(departements => new GetDepartementResponse
@@ -29,18 +33,25 @@ public class DepartementsController : ControllerBase
             Description = departements.Description
         });
 
+        _logger.LogInformation("Fetched {Count} departements from the database.", departementResponses.Count());
+
         return Ok(departementResponses);
     }
 
     [HttpGet("TestRoute/{id}")]
     public async Task<IActionResult> GetDepartementsByIdAsync(int id)
     {
+        _logger.LogInformation("Fetching departement with ID {Id} from the database.", id);
+
         var departement = await _departementService.GetByIdAsync(id);
         
         if (departement == null)
         {
+            _logger.LogWarning("Departement with ID {Id} not found.", id);
             return NotFound();
         }
+
+        _logger.LogInformation("Fetched departement with ID {Id} from the database.", id);
 
         return Ok(departement);
     }
@@ -50,8 +61,11 @@ public class DepartementsController : ControllerBase
         [FromBody] CreateDepartementRequest createDepartementRequest,
         CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Creating a new departement with name {Name}.", createDepartementRequest.Name);
+        
         if (createDepartementRequest == null)
         {
+            _logger.LogWarning("CreateDepartementRequest is null.");
             return BadRequest();
         }
 
@@ -59,6 +73,8 @@ public class DepartementsController : ControllerBase
             createDepartementRequest.Name,
             createDepartementRequest.Description,
             cancellationToken);
+
+        _logger.LogInformation("Created a new departement with ID {Id}.", departementId);
 
         return CreatedAtAction(nameof(GetDepartementsByIdAsync), new { id = departementId }, createDepartementRequest);
     }
@@ -69,13 +85,16 @@ public class DepartementsController : ControllerBase
         [FromBody] UpdateDepartementRequest updateDepartementRequest,
         CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Updating departement with ID {Id}.", id);
         if (updateDepartementRequest == null)
         {
+            _logger.LogWarning("UpdateDepartementRequest is null.");
             return BadRequest();
         }
         var departementToUpdate = await _departementService.GetByIdAsync(id, cancellationToken);
         if (departementToUpdate == null)
         {
+            _logger.LogWarning("Departement with ID {Id} not found.", id);
             return NotFound();
         }
         departementToUpdate.Name = updateDepartementRequest.Name;
@@ -83,6 +102,22 @@ public class DepartementsController : ControllerBase
 
         await _departementService.UpdateAsync(departementToUpdate, cancellationToken);
 
+        _logger.LogInformation("Updated departement with ID {Id}.", id);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteDepartement(int id, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Deleting departement with ID {Id}.", id);
+        var departementToDelete = await _departementService.GetByIdAsync(id, cancellationToken);
+        if (departementToDelete == null)
+        {
+            _logger.LogWarning("Departement with ID {Id} not found.", id);
+            return NotFound();
+        }
+        await _departementService.DeleteAsync(id, cancellationToken);
+        _logger.LogInformation("Deleted departement with ID {Id}.", id);
         return NoContent();
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MiniProjet.ProjectManagement.Infrastructure;
 using MiniProjet.ProjectManagement.Services.Services.Departements;
+using MiniProjet.ProjectManagement.Services.Services.Employees;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MiniProjetContext>(options =>
     options.UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=MiniProjetDb;Data Source=LAPTOP-UR7S8C4K;Encrypt=False;"));  
 
-builder.Services.AddScoped<DepartementService>();
-
-
+builder.Services.AddScoped<IDepartementService, DepartementService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 var app = builder.Build();
 

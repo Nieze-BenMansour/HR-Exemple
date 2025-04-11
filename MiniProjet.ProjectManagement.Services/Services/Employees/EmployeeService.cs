@@ -2,9 +2,9 @@
 using MiniProjet.ProjectManagement.Domain.Entites;
 using MiniProjet.ProjectManagement.Infrastructure;
 
-namespace MiniProjet.ProjectManagement.Services.Services.Departements;
+namespace MiniProjet.ProjectManagement.Services.Services.Employees;
 
-public class EmployeeService
+public class EmployeeService : IEmployeeService
 {
     private readonly MiniProjetContext _context;
     public EmployeeService(MiniProjetContext context)
