@@ -12,8 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<MiniProjetContext>(options =>
-    options.UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=MiniProjetDb;Data Source=LAPTOP-UR7S8C4K;Encrypt=False;"));  
+    options.UseSqlServer(connectionString));  
 
 builder.Services.AddScoped<IDepartementService, DepartementService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();

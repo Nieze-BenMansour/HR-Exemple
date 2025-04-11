@@ -8,17 +8,11 @@ namespace MiniProjet.ProjectManagement.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class DepartementsController : ControllerBase
+public class DepartementsController(
+    IDepartementService _departementService,
+    ILogger<DepartementsController> _logger)
+    : ControllerBase
 {
-    private readonly IDepartementService _departementService;
-    private readonly ILogger<DepartementsController> _logger;
-
-    public DepartementsController(IDepartementService departementService, ILogger<DepartementsController> logger)
-    {
-        _departementService = departementService;
-        _logger = logger;
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetDepartements()
     {
@@ -44,7 +38,7 @@ public class DepartementsController : ControllerBase
         _logger.LogInformation("Fetching departement with ID {Id} from the database.", id);
 
         var departement = await _departementService.GetByIdAsync(id);
-        
+
         if (departement == null)
         {
             _logger.LogWarning("Departement with ID {Id} not found.", id);
@@ -62,7 +56,7 @@ public class DepartementsController : ControllerBase
         CancellationToken cancellationToken)
     {
         _logger.LogInformation("Creating a new departement with name {Name}.", createDepartementRequest.Name);
-        
+
         if (createDepartementRequest == null)
         {
             _logger.LogWarning("CreateDepartementRequest is null.");
