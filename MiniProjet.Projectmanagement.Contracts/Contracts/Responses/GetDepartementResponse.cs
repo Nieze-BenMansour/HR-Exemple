@@ -1,4 +1,4 @@
-﻿namespace MiniProjet.ProjectManagement.API.Contracts.Responses;
+﻿namespace MiniProjet.Projectmanagement.Contracts.Contracts.Responses;
 
 public class GetDepartementResponse
 {

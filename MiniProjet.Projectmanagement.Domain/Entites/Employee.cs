@@ -1,4 +1,6 @@
-﻿namespace MiniProjet.ProjectManagement.Domain.Entites;
+﻿using MiniProjet.ProjectManagement.Domain.Abstractions;
+
+namespace MiniProjet.ProjectManagement.Domain.Entites;
 
 public class Employee : IEntity
 {

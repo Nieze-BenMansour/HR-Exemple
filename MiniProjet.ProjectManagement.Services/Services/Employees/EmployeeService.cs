@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MiniProjet.Projectmanagement.Contracts.Contracts.Responses;
 using MiniProjet.ProjectManagement.Domain.Entites;
 using MiniProjet.ProjectManagement.Infrastructure;
 
@@ -26,9 +27,18 @@ public class EmployeeService : IEmployeeService
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<List<Employee>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<List<GetEmployeeResponse>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await _context.Employees.Include(e => e.Departement).ToListAsync(cancellationToken); // Eager loading of Departement
+        return await _context.Employees
+            .Select(e => new GetEmployeeResponse
+            {
+                Id = e.Id,
+                Name = e.Name,
+                LastName = e.LastName,
+                Age = e.Age,
+                DepartementName = e.Departement.Name
+            })
+            .ToListAsync(cancellationToken); // Implicit loading of Departement
     }
 
     public async Task<Employee?> GetByIdAsync(int id, CancellationToken cancellationToken = default)

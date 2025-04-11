@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniProjet.ProjectManagemen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniProjet.ProjectManagement.API", "MiniProjet.ProjectManagement.API\MiniProjet.ProjectManagement.API.csproj", "{D7E4672B-DCDD-43AF-8C28-C036942654C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniProjet.Projectmanagement.Contracts", "MiniProjet.Projectmanagement.Contracts\MiniProjet.Projectmanagement.Contracts.csproj", "{1EBE0F30-2F45-4A16-8DAA-A1E52464E286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniProjet.ProjectManajement.Desktop", "MiniProjet.ProjectManajement.Desktop\MiniProjet.ProjectManajement.Desktop.csproj", "{7A2F26C0-C3DF-4F34-8583-187BB064C345}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,14 @@ Global
 		{D7E4672B-DCDD-43AF-8C28-C036942654C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7E4672B-DCDD-43AF-8C28-C036942654C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7E4672B-DCDD-43AF-8C28-C036942654C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EBE0F30-2F45-4A16-8DAA-A1E52464E286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EBE0F30-2F45-4A16-8DAA-A1E52464E286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EBE0F30-2F45-4A16-8DAA-A1E52464E286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EBE0F30-2F45-4A16-8DAA-A1E52464E286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A2F26C0-C3DF-4F34-8583-187BB064C345}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A2F26C0-C3DF-4F34-8583-187BB064C345}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A2F26C0-C3DF-4F34-8583-187BB064C345}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A2F26C0-C3DF-4F34-8583-187BB064C345}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

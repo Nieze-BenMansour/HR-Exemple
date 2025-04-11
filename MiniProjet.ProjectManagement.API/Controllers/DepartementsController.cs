@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MiniProjet.ProjectManagement.API.Contracts.Requests;
-using MiniProjet.ProjectManagement.API.Contracts.Responses;
-using MiniProjet.ProjectManagement.Domain.Entites;
+using MiniProjet.Projectmanagement.Contracts.Contracts.Requests;
+using MiniProjet.Projectmanagement.Contracts.Contracts.Responses;
 using MiniProjet.ProjectManagement.Services.Services.Departements;
 
 namespace MiniProjet.ProjectManagement.API.Controllers;
@@ -28,6 +27,8 @@ public class DepartementsController(
         });
 
         _logger.LogInformation("Fetched {Count} departements from the database.", departementResponses.Count());
+
+        throw new Exception("An error occurred while fetching departements."); // Simulating an error
 
         return Ok(departementResponses);
     }

@@ -1,4 +1,4 @@
-﻿namespace MiniProjet.ProjectManagement.API.Contracts.Requests;
+﻿namespace MiniProjet.Projectmanagement.Contracts.Contracts.Requests;
 
 public class UpdateDepartementRequest
 {

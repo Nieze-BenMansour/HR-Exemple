@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using MiniProjet.ProjectManagement.API;
 using MiniProjet.ProjectManagement.Infrastructure;
 using MiniProjet.ProjectManagement.Services.Services.Departements;
 using MiniProjet.ProjectManagement.Services.Services.Employees;
@@ -20,6 +23,8 @@ builder.Services.AddDbContext<MiniProjetContext>(options =>
 builder.Services.AddScoped<IDepartementService, DepartementService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
+builder.Services.AddSingleton<IExceptionHandler, GlobalExceptionHandler>(); // Register the global exception handler
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,5 +39,21 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+        var exception = exceptionHandlerPathFeature?.Error;
+
+        if (exception != null)
+        {
+            var globalExceptionHandler = context.RequestServices.GetRequiredService<GlobalExceptionHandler>();
+            await globalExceptionHandler.HandleExceptionAsync(context, exception);
+        }
+    });
+});
+
 
 app.Run();

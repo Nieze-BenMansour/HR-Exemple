@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MiniProjet.Projectmanagement.Contracts\MiniProjet.Projectmanagement.Contracts.csproj" />
     <ProjectReference Include="..\MiniProjet.ProjectManagement.Services\MiniProjet.ProjectManagement.Services.csproj" />
   </ItemGroup>
 

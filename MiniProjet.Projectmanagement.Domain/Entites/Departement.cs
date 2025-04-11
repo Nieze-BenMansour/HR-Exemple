@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MiniProjet.ProjectManagement.Domain.Abstractions;
+using System.ComponentModel.DataAnnotations;
 
 namespace MiniProjet.ProjectManagement.Domain.Entites;
 
